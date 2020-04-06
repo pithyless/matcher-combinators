@@ -44,10 +44,12 @@
               :expected '~form
               :actual   (list 'match? matcher# actual#)}
              (with-file+line-info
-               {:type     :matcher-combinators/mismatch
+               {:type     :fail
                 :message  ~msg
                 :expected '~form
-                :actual   (list '~'not (list 'match? matcher# actual#))
+                :actual (list 'mismatch
+                              (get-in result# [::result/value :expected])
+                              (get-in result# [::result/value :actual]))
                 :markup   (::result/value result#)}))))
        :else
        (t/do-report
@@ -91,7 +93,7 @@
                   :expected '~form
                   :actual   (list 'thrown-match? ~klass ~matcher '~body)}
                  (with-file+line-info
-                   {:type     :matcher-combinators/exception-mismatch
+                   {:type     :fail
                     :message  ~msg
                     :expected '~form
                     :actual   (list '~'not (list 'thrown-match? ~klass ~matcher '~body))
