@@ -1,0 +1,5 @@
+{:paths ["src/clj" "src/cljc"]
+ :deps
+ {org.clojure/math.combinatorics {:mvn/version "0.1.6"}
+  midje                          {:mvn/version "1.9.9"
+                                  :exclusions  [org.clojure/clojure]}}}
